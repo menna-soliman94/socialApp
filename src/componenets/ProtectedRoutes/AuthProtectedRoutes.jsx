@@ -1,0 +1,15 @@
+import React, { useContext, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { authContext } from "../../context/AuthContext";
+
+export default function AppProtectedRoutes({ children }) {
+  const { token } = useContext(authContext);
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (token) {
+      navigate("/");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [token]);
+  return <>{children}</>;
+}
