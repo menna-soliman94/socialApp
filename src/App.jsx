@@ -16,34 +16,39 @@ import AppProtectedRoutes from "./componenets/ProtectedRoutes/AppProtectedRoutes
 import AuthProtectedRoutes from "./componenets/ProtectedRoutes/AuthProtectedRoutes";
 
 export default function App() {
-  const router = createBrowserRouter([
+  const router = createBrowserRouter(
+    [
+      {
+        path: "",
+        element: (
+          <AppProtectedRoutes>
+            <MainLayout />
+          </AppProtectedRoutes>
+        ),
+        children: [
+          { index: true, element: <Navigate to={"/home"} /> },
+          { path: "/home", element: <NewsFeed /> },
+          { path: "/profile", element: <UserProfile /> },
+        ],
+      },
+      {
+        path: "",
+        element: (
+          <AuthProtectedRoutes>
+            <AuthLayout />
+          </AuthProtectedRoutes>
+        ),
+        children: [
+          { path: "/register", element: <Register /> },
+          { path: "/login", element: <Login /> },
+        ],
+      },
+      { path: "*", element: <NotFound /> },
+    ],
     {
-      path: "",
-      element: (
-        <AppProtectedRoutes>
-          <MainLayout />
-        </AppProtectedRoutes>
-      ),
-      children: [
-        { index: true, element: <Navigate to={"/home"} /> },
-        { path: "/home", element: <NewsFeed /> },
-        { path: "/profile", element: <UserProfile /> },
-      ],
+      basename: "/socialApp",
     },
-    {
-      path: "",
-      element: (
-        <AuthProtectedRoutes>
-          <AuthLayout />
-        </AuthProtectedRoutes>
-      ),
-      children: [
-        { path: "/register", element: <Register /> },
-        { path: "/login", element: <Login /> },
-      ],
-    },
-    { path: "*", element: <NotFound /> },
-  ]);
+  );
   return (
     <>
       <RouterProvider router={router} />
