@@ -36,8 +36,9 @@ export default function Register() {
     try {
       setErrorMsg("");
       setSuccessMsg("");
-      const {data} = await registerUser(formData);
+      const data = await registerUser(formData);
       console.log(data);
+      console.log("RESPONSE:", data);
       if (data.success) {
         navigate("/login");
         // setSuccessMsg("Account Created Successfully");
@@ -47,8 +48,8 @@ export default function Register() {
       }
     } catch (error) {
       console.log(error);
-      setErrorMsg(error.response.data.error);
-      toast.error(error.response.data.error, {
+      setErrorMsg(error?.response?.data?.error);
+      toast.error(error?.response?.data?.error, {
         position: "top-center",
       });
     }
