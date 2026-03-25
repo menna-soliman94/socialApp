@@ -36,12 +36,12 @@ export default function Register() {
     try {
       setErrorMsg("");
       setSuccessMsg("");
-      const response = await registerUser(formData);
-      console.log(response);
-      if (response.data.message == "success") {
+      const {data} = await registerUser(formData);
+      console.log(data);
+      if (data.success) {
         navigate("/login");
         // setSuccessMsg("Account Created Successfully");
-        toast.success("Logged In Successfully", {
+        toast.success("Account Created Successfully", {
           position: "top-center",
         });
       }
