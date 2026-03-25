@@ -48,8 +48,8 @@ export default function Register() {
       }
     } catch (error) {
       console.log(error);
-      setErrorMsg(error?.response?.data?.error);
-      toast.error(error?.response?.data?.error, {
+      setErrorMsg(error?.response?.data?.message);
+      toast.error(error?.response?.data?.message, {
         position: "top-center",
       });
     }
